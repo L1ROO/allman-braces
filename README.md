@@ -46,7 +46,7 @@ No configuration needed. Works out of the box.
 
 ## Known Issues
 
-None reported yet. Found one? Open an issue on [GitHub]().
+None reported yet. Found one? Open an issue on [GitHub](https://github.com/L1ROO/allman-braces).
 
 ## Release Notes
 
