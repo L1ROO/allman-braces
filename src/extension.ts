@@ -1,10 +1,53 @@
 import * as vscode from 'vscode';
 
+let isEnabled = true;
+let statusBarItem: vscode.StatusBarItem;
+
+function updateStatusBar()
+{
+    statusBarItem.text = isEnabled ? '$(check) Allman ON' : '$(x) Allman OFF';
+    statusBarItem.tooltip = 'Click to toggle Allman Braces';
+    statusBarItem.backgroundColor = isEnabled
+        ? undefined
+        : new vscode.ThemeColor('statusBarItem.warningBackground');
+}
+
 export function activate(context: vscode.ExtensionContext)
 {
+
+    statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+    statusBarItem.command = 'allman.toggle';
+    statusBarItem.show();
+    updateStatusBar();
+    context.subscriptions.push(statusBarItem);
+
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand('allman.toggle', () =>
+        {
+            isEnabled = !isEnabled;
+            updateStatusBar();
+            vscode.window.setStatusBarMessage(
+                isEnabled ? 'Allman Braces enabled' : 'Allman Braces disabled',
+                2000
+            );
+        })
+    );
+
     context.subscriptions.push(
         vscode.commands.registerCommand('allman.enter', async () =>
         {
+            if (!isEnabled)
+            {
+                 const editor = vscode.window.activeTextEditor;
+                if (!editor) return;
+                await editor.edit(editBuilder =>
+                {
+                    editBuilder.insert(editor.selection.active, '\n');
+                });
+                return;
+            }
+
             const editor = vscode.window.activeTextEditor;
             if (!editor) return;
 
@@ -35,8 +78,12 @@ export function activate(context: vscode.ExtensionContext)
                 return;
             }
 
-            // Enter normal
-            await vscode.commands.executeCommand('default:type', { text: '\n' });
+            const editor2 = vscode.window.activeTextEditor;
+            if (!editor2) return;
+            await editor2.edit(editBuilder =>
+            {
+                editBuilder.insert(editor2.selection.active, '\n');
+            });
         })
     );
 }

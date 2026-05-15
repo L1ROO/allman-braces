@@ -2,7 +2,7 @@
   "name": "allman-braces-v2",
   "displayName": "Allman Braces V2",
   "description": "Automatically expands inline curly braces to Allman style when pressing Enter.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "LIRO",
   "icon": "logo.png",
   "repository": {
@@ -13,17 +13,27 @@
     "vscode": "^1.118.0"
   },
   "categories": [
-    "Other"
+    "Formatters"
   ],
-  "activationEvents": [
-     "onLanguage"
+  "keywords": [
+    "allman",
+    "braces",
+    "formatter",
+    "css",
+    "scss"
   ],
+  "activationEvents": ["onStartupFinished"],
+
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "allman.enter",
         "title": "Allman Enter"
+      },
+      {
+        "command": "allman.toggle",
+        "title": "Allman Braces: Toggle"
       }
     ],
     "keybindings": [
@@ -31,6 +41,10 @@
         "command": "allman.enter",
         "key": "enter",
         "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && !parameterHintsVisible && !inSnippetMode"
+      },
+      {
+        "command": "allman.toggle",
+        "key": "ctrl+shift+alt+a"
       }
     ]
   },
