@@ -4,7 +4,7 @@ Automatically expands inline curly braces to **Allman style** when pressing `Ent
 
 ## Demo
 
-![Demo](assets/Demo.gif)
+![Demo](assets/demoV2.gif)
 
 ## What it does
 
@@ -59,6 +59,15 @@ if (condition)
 ```
 
 ## Release Notes
+
+### 0.0.4
+- Fixed compatibility with older versions of VS Code
+- Lowered minimum required version to 1.0.0
+- Improved README tutorial
+
+### 0.0.3
+- Fixed GIF demo not displaying in Marketplace
+- Moved assets folder to project root
 
 ### 0.0.2
 - Added toggle on/off via `Ctrl+Shift+Alt+A` or status bar button
